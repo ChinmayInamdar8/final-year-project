@@ -13,20 +13,38 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
-model Student{
-  id Int @id @default(autoincrement())
-  full_name String 
-  phone_no String @unique
-  email String @unique
-  password String
+model Student {
+  id        Int    @id @default(autoincrement())
+  full_name String
+  phone_no  String @unique
+  email     String @unique
+  password  String
 }
 
+model Admin {
+  id        Int    @id @default(autoincrement())
+  full_name String
+  phone_no  String @unique
+  email     String @unique
+  password  String
+}
 
-model Admin{
-  id Int @id @default(autoincrement())
-  full_name String 
-  phone_no String @unique
-  email String @unique
-  password String
+model TestDetails {
+  id          String @id
+  test_name   String
+  password    String
+  no_question Int
+  Test Test[]
+}
+
+model Test {
+  id        Int    @id @default(autoincrement())
+  test_id   String @unique
+  question  String
+  option1   String
+  option2   String
+  option3   String
+  option4   String
+  answer_op String
+  TestDetails TestDetails @relation(fields: [test_id], references: [id])
 }
