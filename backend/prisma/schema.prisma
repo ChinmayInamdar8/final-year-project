@@ -27,6 +27,7 @@ model Admin {
   phone_no  String @unique
   email     String @unique
   password  String
+  TestDetails TestDetails[]
 }
 
 model TestDetails {
@@ -34,7 +35,9 @@ model TestDetails {
   test_name   String
   password    String
   no_question Int
+  adminId   Int
   Test Test[]
+  Admin Admin @relation(fields: [adminId], references: [id])
 }
 
 model Test {

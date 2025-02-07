@@ -1,6 +1,12 @@
+import { customAlphabet } from "nanoid"
+
 
 
 export function CreateTestForm(){
+
+    const generateExamCode = customAlphabet("1234568790", 6);
+    const examCode = generateExamCode();
+
     return <div className="w-full flex justify-center items-center mt-12 pb-20">
         <div className="bg-white w-8/10 rounded-md shadow-2xl">
             <div className="text-center text-2xl font-medium">Create New Test</div>
@@ -10,7 +16,7 @@ export function CreateTestForm(){
                 <div className="grid grid-cols-2 justify-center items-center my-6 mx-48">
                     <div className="mr-6">Unique Id:- </div>
                     <div  className="mr-6 border-b-orange-600 border-b-2 text-center">
-                        123456
+                        {examCode}
                     </div>
                 </div>
                 <div className="grid grid-cols-2 justify-center items-center my-6 mx-48">
