@@ -1,0 +1,67 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model student{
+  id Int @id @default(autoincrement())
+  name String
+  email String
+  password String
+  image String
+}
+model admin{
+  id Int @id @default(autoincrement())
+  name String
+  email String
+  password String
+}
+
+model mcq_exam{
+  id Int @id @default(autoincrement())
+  name String
+  Exam_id String @unique
+  no_of_questions Int
+  date DateTime @default(now())
+  duration Int    // to store the time in minute
+  active Boolean @default(true)
+  result_display Boolean
+  questions question[]
+}
+
+model question{
+  id Int @id @default(autoincrement())
+  exam_id String
+  question_no Int    // starts from 1
+  question String
+  options String[]
+  correctOption Int   // starts from 0
+  exam mcq_exam @relation(fields: [exam_id], references: [Exam_id])
+
+}
+
+model result{
+  id Int @id @default(autoincrement())
+  exam_id String
+  student_id Int
+  result_validity Boolean @default(true)
+  marks Int
+}
+
+model active_student{
+  id Int @id @default(autoincrement())
+  exam_id String
+  student_id Int
+  image String
+}

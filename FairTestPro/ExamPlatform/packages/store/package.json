@@ -1,0 +1,21 @@
+{
+  "name": "@repo/store",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/store.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@reduxjs/toolkit": "^2.6.1",
+    "react-redux": "^9.2.0"
+  },
+  "exports": {
+    "./client": "./dist/store.ts",
+    "./slices/*": "./dist/slices/*"
+  }
+}
