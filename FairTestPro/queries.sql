@@ -1,0 +1,14 @@
+
+select * from "admin";
+
+select * from "mcq_exam";
+
+select * from "question";
+
+select * from "active_student";
+
+select * from "result";
+
+delete from "question" where exam_id='034415';
+
+DELETE FROM "mcq_exam" WHERE "Exam_id" = '034415';
