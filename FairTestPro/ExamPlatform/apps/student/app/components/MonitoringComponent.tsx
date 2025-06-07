@@ -51,13 +51,13 @@ const captureAndSend = async () => {
   }, [isWebcamReady]);
 
   return (
-    <>
+    <div className="flex text-center items-center justify-center">
       <Webcam
         ref={webcamRef}
         audio={false}
         screenshotFormat="image/jpeg"
-        width={200}
-        height={200}
+        width={100}
+        height={100}
         onUserMedia={() => {
           console.log("Webcam is ready");
           setIsWebcamReady(true);
@@ -66,6 +66,6 @@ const captureAndSend = async () => {
           console.error("Webcam error:", err);
         }}
       />
-    </>
+    </div>
   );
 }

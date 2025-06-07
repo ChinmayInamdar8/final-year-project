@@ -20,16 +20,19 @@ model student{
   email String
   password String
   image String
+  results result[]
 }
 model admin{
   id Int @id @default(autoincrement())
   name String
   email String
   password String
+  mcq_exams mcq_exam[]
 }
 
 model mcq_exam{
   id Int @id @default(autoincrement())
+  admin_id Int @default(2)
   name String
   Exam_id String @unique
   no_of_questions Int
@@ -38,6 +41,7 @@ model mcq_exam{
   active Boolean @default(true)
   result_display Boolean
   questions question[]
+  adminRelation admin @relation(fields: [admin_id], references: [id])
 }
 
 model question{
@@ -57,6 +61,7 @@ model result{
   student_id Int
   result_validity Boolean @default(true)
   marks Int
+  student student @relation(fields: [student_id], references: [id])
 }
 
 model active_student{

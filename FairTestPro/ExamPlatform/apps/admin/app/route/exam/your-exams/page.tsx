@@ -121,6 +121,7 @@ const TableRow =({exam}:{exam:ExamType})=>{
               </td>
               <td className="px-6 py-4 text-center">
                 <button className="text-green-600 hover:underline"
+                onClick={()=>router.push(`/route/exam/view-result?id=${exam.Exam_id}`)}
                 >view result</button>
               </td>
               <td className="px-6 py-4 text-center">

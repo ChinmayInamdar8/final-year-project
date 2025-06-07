@@ -48,6 +48,7 @@ export default function start_assessment() {
     try {
       const storedRes = await axios.post("/api/exam/get-image", { email });
       const storedImage = storedRes.data?.image.image;
+      console.log(storedRes);
 
       if (!storedImage) {
         alert("No image is present in the database");
@@ -82,6 +83,7 @@ export default function start_assessment() {
         alert("Face verification failed. Please try again.");
       }
     } catch (e: any) {
+      console.log(e);
       alert(e.response?.data?.error || "There was a problem starting the test");
     } finally {
       setLoading(false);
