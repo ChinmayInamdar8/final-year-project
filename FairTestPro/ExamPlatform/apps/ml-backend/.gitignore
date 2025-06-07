@@ -1,0 +1,14 @@
+# Python virtual environments (if inside the backend folder)
+venv/
+lean-backend-env/
+
+# Python bytecode
+__pycache__/
+**/*.py[cod]
+
+# Deepface / torch cached models (optional, depends where they get saved)
+~/.cache/
+~/.deepface/
+
+# Ignore model weight files if downloaded separately
+/*.pt
