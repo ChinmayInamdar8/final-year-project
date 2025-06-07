@@ -5,3 +5,4 @@ opencv-python
 deepface
 pydantic
 python-multipart
+ultralytics
