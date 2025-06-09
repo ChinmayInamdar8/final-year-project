@@ -13,7 +13,8 @@ interface questionsType{
 }
 
 export async function POST(req:Request){
-    const {options, exam_id, student_id} = await req.json();
+    const {options, exam_id, student_id, alertCount} = await req.json();
+    const numAlert = Number(alertCount);
     if(options && exam_id && student_id){
         const numaricOptions = options.map((opt:string)=>(opt === "" ? null : Number(opt)));
 
@@ -32,7 +33,8 @@ export async function POST(req:Request){
                 data:{
                     student_id:parseInt(student_id),
                     exam_id,
-                    marks:result
+                    marks:result,
+                    result_validity: numAlert >3 ? false : true 
                 }
             })
 

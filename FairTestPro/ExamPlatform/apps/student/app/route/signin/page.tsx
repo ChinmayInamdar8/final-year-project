@@ -30,7 +30,7 @@ export default function Home(){
             onSubmit={handleSubmit}
             className="w-96 bg-white flex flex-col justify-center items-center rounded shadow-lg">
             <Heading heading="SignIn"></Heading>
-            <SubHeading heading="Admin"></SubHeading>
+            <SubHeading heading="Student"></SubHeading>
             <div className="w-full px-10">
                 <input type="text" name="email" id="email" placeholder="Email Id" className="border border-slate-500 rounded py-1 px-6 w-full text-center outline-none my-6 text-sky-600 placeholder-sky-600" onChange={(e)=>{setEmail(e.target.value)}}/>
                 <input type="password" name="password" id="password" placeholder="Password" className="border border-slate-500 rounded py-1 px-6 w-full text-center outline-none my-6 text-sky-600 placeholder-sky-600" onChange={(e)=>{setPassword(e.target.value)}}/>

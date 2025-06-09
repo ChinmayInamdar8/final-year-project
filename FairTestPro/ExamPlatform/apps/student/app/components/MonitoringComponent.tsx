@@ -1,11 +1,10 @@
 import axios from "axios";
-import { useEffect, useRef, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import Webcam from "react-webcam";
 
-export default function MonitoringComponent() {
+export default function MonitoringComponent({setAlertCount, setNotification_value}:{setAlertCount:Dispatch<SetStateAction<number>>, setNotification_value:Dispatch<SetStateAction<number>>}) {
   const webcamRef = useRef<Webcam>(null);
   const [isWebcamReady, setIsWebcamReady] = useState(false);
-  const [no_of_alert, setNo_ofalert] = useState(0);
 
   const [hasAlerted, setHasAlerted] = useState(false);
 
@@ -22,18 +21,22 @@ const captureAndSend = async () => {
       });
       console.log("Response from YOLO:", data);
 
-      if (data.status === "alert" && !hasAlerted) {
-        setNo_ofalert((prev) => prev + 1);
+      if ((data.status === "alert" && !hasAlerted) || data.person_count==0) {
+        setAlertCount((prev) => prev + 1);
         alerts++;
         setHasAlerted(true);
         if(data.person_count>1){
-          alert(`there are more number of students in the frame`)
+          // alert(`there are more number of students in the frame`)
+          setNotification_value(2);
+        }else if(data.person_count==0){
+          setNotification_value(1);
         }else{
-          alert(`mobile phone detected ! \n warning`)
+          // alert(`mobile phone detected ! \n warning`)
+          setNotification_value(3);
         }
 
         // Allow next alert after 10s
-        setTimeout(() => setHasAlerted(false), 100000);
+        setTimeout(() => setHasAlerted(false), 10000);
       }
     } catch (e) {
       console.error("Error sending frame:", e);

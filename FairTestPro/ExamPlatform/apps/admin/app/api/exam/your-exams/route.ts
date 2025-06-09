@@ -19,7 +19,7 @@ export async function GET(req:Request){
         const data = await prisma.mcq_exam.findMany({
             where:{
                 admin_id:admin_data?.id
-            }
+            },
         })
 
 

@@ -32,7 +32,10 @@ export function ExamBoard({
   global_no_of_questions = no_of_questions;
   console.log(no_of_questions);
   const router = useRouter();
+  const [notificationMessage, setNotificationMessage] = useState<string>("");
   const [remainingTime, setRemainingTime] = useState(5425);
+  const [alertCount, setAlartCount] = useState<number>(0);
+  const [notification_value, setNotification_value] = useState<number>(0);
   const [question, setQuestion] = useState("");
   const [loading, setLoading] = useState(true);
   const [options, setOptions] = useState<string[]>([""]);
@@ -88,7 +91,9 @@ export function ExamBoard({
   useEffect(() => {
     if (remainingTime <= 0) {
       // handle things to do after timeup
-      alert("your time is finished, your test will get automatically submitted!")
+      alert(
+        "your time is finished, your test will get automatically submitted!"
+      );
       axios
         .post("/api/exam/assessment/check-result", {
           options: selected_options,
@@ -113,13 +118,49 @@ export function ExamBoard({
     return () => clearInterval(timer);
   }, [remainingTime]);
 
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+
+    console.log("hi this is working")
+    console.log("notification count is ", alertCount);
+
+    // Set the message based on value
+    if (notification_value === 1) {
+      setNotificationMessage("⚠️ No person is present!");
+    } else if (notification_value === 2) {
+      setNotificationMessage("⚠️ Multiple persons detected!");
+    } else if (notification_value === 3) {
+      setNotificationMessage("📱 Mobile phone detected!");
+    } else {
+      setNotificationMessage("");
+    }
+
+    // Clear message after 2 seconds if it's not blank
+    if (notification_value !== 0) {
+      timer = setTimeout(() => {
+        setNotification_value(0);
+        setNotificationMessage("");
+      }, 2000);
+    }
+
+    return () => clearTimeout(timer);
+  }, [notification_value]);
+
   if (loading) {
     return <ExamSkeleton></ExamSkeleton>;
   }
 
   return (
     <div className="w-full h-[92vh] flex flex-col overflow-hidden">
-      <MonitoringComponent></MonitoringComponent>
+      {
+        <div className="text-red-600 text-sm mx-auto mt-2 transition">
+          {notificationMessage}
+        </div>
+      }
+      <MonitoringComponent
+        setAlertCount={setAlartCount}
+        setNotification_value={setNotification_value}
+      ></MonitoringComponent>
       <div className=" flex justify-between mt-4 items-center">
         <div className="bg-slate-600 rounded px-8 ml-3 text-white">
           <p className="text-center text-xl">timer</p>
@@ -138,6 +179,7 @@ export function ExamBoard({
                   options: selected_options,
                   exam_id: exam_id,
                   student_id: window.localStorage.getItem("student_id"),
+                  alertCount
                 }
               );
 
@@ -269,7 +311,7 @@ const ActualQuestion = ({
         <button
           className="mx-6 py-1 px-8 rounded text-white bg-violet-600"
           onClick={() => {
-            if (selected_question_number < global_no_of_questions - 1) {
+            if (selected_question_number < global_no_of_questions) {
               set_question_number((prev) => prev + 1);
             }
           }}

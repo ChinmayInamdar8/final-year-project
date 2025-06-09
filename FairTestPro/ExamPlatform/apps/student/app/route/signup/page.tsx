@@ -51,7 +51,7 @@ export default function Home() {
         className="w-2/5 bg-white flex flex-col justify-center items-center rounded shadow-lg my-16"
       >
         <Heading heading="SignUp"></Heading>
-        <SubHeading heading="Admin"></SubHeading>
+        <SubHeading heading="Student"></SubHeading>
         <div className="w-full px-10">
           <input
             type="text"

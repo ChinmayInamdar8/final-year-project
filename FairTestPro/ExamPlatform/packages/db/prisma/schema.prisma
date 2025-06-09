@@ -41,6 +41,7 @@ model mcq_exam{
   active Boolean @default(true)
   result_display Boolean
   questions question[]
+  results result[]
   adminRelation admin @relation(fields: [admin_id], references: [id])
 }
 
@@ -62,6 +63,7 @@ model result{
   result_validity Boolean @default(true)
   marks Int
   student student @relation(fields: [student_id], references: [id])
+  exam mcq_exam @relation(fields: [exam_id], references: [Exam_id])
 }
 
 model active_student{
